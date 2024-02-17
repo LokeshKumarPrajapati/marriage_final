@@ -1,0 +1,380 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+{% static "images" as baseUrl %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rivaaz Events</title>
+    <link rel="icon" type="image/x-icon" href="{%static 'img/Logo.png' %}">
+    <link href="{%static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{%static 'css/global.css' %}" rel="stylesheet">
+    <link href="{%static 'css/index.css' %}" rel="stylesheet">
+    <link href="{%static 'css/img_gallery.css' %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{%static 'css/font-awesome.min.css' %}" />
+    <link href="{%static 'css/element.css' %}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
+    <script src="{%static 'js/jquery-2.1.1.min.js' %}"></script>
+    <script src="{%static 'js/bootstrap.min.js' %}"></script>
+
+
+
+<style> 
+
+
+#gallery {
+    display: grid;
+    margin-top: 2%;
+    margin-left: 2%;
+    margin-right: 2%;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: auto;
+    grid-gap: 30px;
+}
+
+/* Media query for screens between 1024px and 1366px */
+@media only screen and (min-width: 1024px) and (max-width: 1366px) {
+    #gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+    
+    .gallery-item {
+        width: 450px; 
+        height: 300px; 
+        /* overflow: hidden;  */
+      
+        position: relative;
+        border: 5px solid #dbdb3d;
+        margin-bottom: 30px;
+    }
+    
+    .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* This will ensure that images cover the area without stretching */
+        display: block;
+    }
+
+    
+
+    @media (max-width: 768px) {
+        #gallery {
+            grid-template-columns: 1fr; 
+        }
+
+
+        .gallery-item{
+            left:25px;
+            width: 360px; 
+            height: 200px; 
+        }
+
+      
+    }
+
+  
+    @media (max-width: 600px) {
+        .popup-content img {
+            width: 400px !important;
+        }
+
+        .popup-close {
+           
+            top: 120px !important;
+            right: -25px !important;
+          
+        }
+    }
+
+
+    
+        .gallery-item {
+            /* ... other properties ... */
+            border: none; /* Removed the yellow border */
+        }
+    
+        /* Popup styles */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+    
+        .popup-content {
+            position: relative;
+            padding: 20px;
+            background: transparent;
+            border-radius: 5px;
+        }
+    
+        .popup-close {
+            position: absolute;
+            top: 50px;
+            right: -15px;
+            cursor: pointer;
+            font-size: 55px;
+            color: #AD8706;
+        }
+        
+       
+  
+</style>
+
+
+
+</head>
+
+<body>
+
+
+    
+
+    <section id="about" class="about_imgGallery clearfix" style="background-image: url('{{header_image.url}}');">
+        <div class="about_main clearfix">
+            <div class="container">
+                <div class="row">
+                    <div class="about clearfix">
+                        <div class="col-sm-7 about_left clearfix">
+                            <div class="about_left_inner clearfix">
+                                <h1 style="font-family:'Garamond">{{ event_name }}</h1>
+                                <h5 style="color: #fff;">{{ event_desc }}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="gallery" class="clearfix">
+        <div class="container">
+            <div class="row">
+                
+               
+            </div>
+        </div>
+    </section>
+
+    <div class="popup-overlay" id="popup-overlay">
+        <div class="popup-content">
+          <span class="popup-close" id="popup-close">&times;</span>
+          <img src="" id="popup-img" alt="Popup Image">
+        </div>
+      </div>
+      
+    <div class="gallery" id="gallery">
+        {% for i in gallery2 %}
+        <div class="gallery-item">
+            <div class="content"><img src="{{i.Image.url}}" alt=""></div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <script src="{%static 'js/classie.js' %}"></script>
+    <script src="{%static 'js/cbpAnimatedHeader.js' %}"></script>
+    <script type="text/javascript">
+        // Function to resize gallery items
+// Function to resize gallery items
+function resizeGalleryItems() {
+    var gallery = document.querySelector('#gallery');
+    var getVal = function(elem, style) { return parseInt(window.getComputedStyle(elem).getPropertyValue(style)); };
+    var getHeight = function(item) { return item.querySelector('.content').getBoundingClientRect().height; };
+    var altura = getVal(gallery, 'grid-auto-rows');
+    var gap = getVal(gallery, 'grid-row-gap');
+    gallery.querySelectorAll('.gallery-item').forEach(function(item) {
+      var el = item;
+      el.style.gridRowEnd = "span " + Math.ceil((getHeight(item) + gap) / (altura + gap));
+    });
+  }
+  
+  // Resize all gallery items on page load and window resize
+  window.addEventListener('load', resizeGalleryItems);
+  window.addEventListener('resize', resizeGalleryItems);
+  
+  // Function to handle image click for opening popup
+  function handleImageClick() {
+    document.querySelectorAll('.gallery-item img').forEach(item => {
+      item.addEventListener('click', function() {
+        var popupOverlay = document.getElementById('popup-overlay');
+        var popupImg = document.getElementById('popup-img');
+        popupImg.src = this.src;
+        popupOverlay.style.display = 'flex';
+      });
+    });
+  }
+  
+  // Call the function to handle image click
+  handleImageClick();
+  
+  // Function to close the popup when clicking outside the image or on the close button
+ // Function to close the popup when clicking outside the image or on the close button
+function setupPopupClose() {
+    var popupOverlay = document.getElementById('popup-overlay');
+    var popupClose = document.getElementById('popup-close');
+
+    if (popupOverlay) {
+        // Close popup when clicking on the overlay
+        popupOverlay.addEventListener('click', function(event) {
+            if (event.target === popupOverlay || event.target === popupClose) {
+                popupOverlay.style.display = 'none';
+            }
+        });
+
+        // Close popup when clicking the close button
+        if (popupClose) {
+            popupClose.addEventListener('click', function(event) {
+                event.stopPropagation(); // Prevents the event from propagating to other elements
+                popupOverlay.style.display = 'none';
+            });
+        }
+    }
+}
+
+// Call the setupPopupClose function to initialize the close functionality
+setupPopupClose();
+
+
+
+  // Additional scripts for menu toggle
+  $("#menu-close").click(function(e) {
+    e.preventDefault();
+    $("#sidebar-wrapper").toggleClass("active");
+  });
+  $("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    $("#sidebar-wrapper").toggleClass("active");
+  });
+  
+    </script>
+    
+    
+    
+
+    
+    
+
+
+    
+    
+
+
+
+
+
+    <style>
+        /* ... other styles ... */
+    
+        .popup-overlay {
+            /* ... existing styles ... */
+        }
+    
+        .popup-content img {
+            width: 600px;
+            height: 600px;
+            object-fit: contain; /* This will ensure the image fits within the dimensions without stretching */
+        }
+        
+        .popup-content {
+            /* ... existing styles ... */
+            max-width: 80%; /* Adjust as needed */
+            max-height: 80%; /* Adjust as needed */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+     
+        }
+    
+      
+    
+        .popup-close {
+            cursor: pointer;
+            font-size: 55px;
+            color:#AD8706;
+            /* Remove the top and right properties */
+        }
+
+
+       
+        @media only screen and (min-width: 768px) and (max-width: 1180px)
+        {
+#gallery {
+    grid-template-columns: repeat(2,0fr);
+}
+        }
+
+
+
+        @media only screen and (min-width: 768px) and (max-width: 1180px)
+        {
+#gallery {
+    margin: 0 auto;
+    grid-template-columns: repeat(2,0fr);
+}
+
+
+
+
+
+
+
+
+}
+
+@media (max-width: 768px)
+{
+.gallery-item {
+    left: 25px;
+    width: 346px;
+    height: 200px;
+}
+}
+
+@media only screen and (min-width: 820px) and (max-width: 1180px)
+{
+
+
+
+
+    
+
+    .gallery-item {
+    width: 383px;
+    height: 215px;
+
+    margin-bottom: 30px;
+}
+}
+
+@media only screen and (min-width: 1024px) and (max-width: 1366px)
+{
+
+.gallery-item {
+    width: 487px;
+    height: 277px;
+    margin-bottom: 30px;
+}
+
+}
+
+
+    </style>
+    
+</body>
+
+</html>
+{% endblock content %}
