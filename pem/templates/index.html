@@ -11,7 +11,8 @@
     <!-- The X-UA-Compatible meta tag is used to force IE to use the latest rendering engine -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- The viewport meta tag is used to control the layout on mobile devices -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
     <!-- The title tag sets the title of the document, which is shown in the browser's title bar or tab -->
     <title>Rivaaz Events</title>
     <link rel="icon" type="image/x-icon" href="{%static 'img/Logo.png' %}">
@@ -48,7 +49,8 @@
 </head>
 
 
-<body>
+<body style="background-image: url(/media/pics/m.jpg); background-size: cover; background-position: center;">
+
 
 
 
@@ -258,38 +260,48 @@
         position: relative;
         z-index: 1;}
     </style>    
-    <section id="center_2" class="clearfix">
-        <div class="container">
-            <div class="row">
-                <div class="center_2 clearfix">
-                    <div class="center_2_top clearfix">
-                        <!-- The h2 tag is used to display a medium heading -->
-                        <h2 style="font-weight: bold;  margin-left:10px; margin-right:10px;">Enchanted by the artistry of</h2>
-                        <!-- The hr tag is used to create a horizontal line -->
-                        <hr class="hr_1">
-                        <!-- The p tag is used to display a paragraph -->
-                        <p>Rivaaz Events</p>
-                    </div>
-                    <div class="center_2_middle clearfix">
-
-                        {% for i in stories %}
-                        <div class="col-sm-4 center_2_middle_left clearfix">
-                            <div class="center_2_middle_left_inner clearfix">
-                                <!-- The i tag is used to display a font-awesome icon -->
-                                <p><img src="{{ i.LogoImage.url }}" class="img-circle" height="200" width="200"></p>
-                                <h2><a href="Gallery">{{ i.ClientNames}}</a></h2>
-                                <h4> {{i.StoryName}}</h4>
-                                <h4><i class="fa fa-calendar"></i> {{i.Date}}</h4>
-                                <h4><i class="fa fa-map-marker"></i> {{i.Location}}</h4>
-                            </div>
+ <section id="center_2" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="center_2 clearfix">
+                <div class="center_2_top clearfix text-center">
+                    <!-- The h2 tag is used to display a medium heading -->
+                    <h2 style="font-weight: bold; margin: 0;">Enchanted by the artistry of</h2>
+                    <!-- The hr tag is used to create a horizontal line -->
+                    <hr class="hr_1">
+                    <!-- The p tag is used to display a paragraph -->
+                    <p style="margin: 0;">Rivaaz Events</p>
+                </div>
+                <div class="center_2_middle clearfix text-center"> <!-- Added text-center class -->
+                    {% for i in stories %}
+                    <div class="col-xs-12 col-sm-6 col-md-4 center_2_middle_left clearfix">
+                        <div class="center_2_middle_left_inner clearfix">
+                            <!-- The i tag is used to display a font-awesome icon -->
+                            <p><img src="{{ i.LogoImage.url }}" class="img-circle" height="200" width="200"></p>
+                            <h2><a href="Gallery">{{ i.ClientNames}}</a></h2>
+                            <h4>{{i.StoryName}}</h4>
+                            <h4><i class="fa fa-calendar"></i> {{i.Date}}</h4>
+                            <h4><i class="fa fa-map-marker"></i> {{i.Location}}</h4>
                         </div>
-                        {% endfor %}
-
                     </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
 
     <section id="center_3" class="clearfix">
         <div class="container">
@@ -605,6 +617,18 @@
                 display: block;
                 margin: 0 auto;
             }
+
+
+
+
+
+            .center_7_middle_left_inner p {
+    color: #ffffff;
+    position: relative;
+    margin-top: 2rem;
+    z-index: 1;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
         }
 
 
@@ -675,9 +699,7 @@
 
                 margin-bottom: 50px;
             }
-            .clearfix{
-                padding-top:0px;
-            }
+           
         }
         
 

@@ -121,19 +121,18 @@
 		<div class="container">
 			<div class="row">
 				<div class="testimonial clearfix">
-					<div class="testimonial_top clearfix">
-						<h1>Step into spotlight and hear from thpse who've experienced the<br> 'Rivaaz' magic
-							firsthand.<br> Let our clients do the talking - their stories, our success!</h1>
+					<div class="testimonial_top clearfix text-center">
+						<h1>Step into the spotlight and hear from those who've experienced the 'Rivaaz' magic firsthand. Let our clients do the talking - their stories, our success!</h1>
 					</div>
-
+	
 					{% for i in testimonial %}
 					<div class="testimonial_middle clearfix">
-						<div class="col-sm-4 testimonial_middle_left clearfix">
+						<div class="col-xs-12 col-sm-4 testimonial_middle_left clearfix d-flex justify-content-center">
 							<div class="testimonial_middle_left_inner clearfix">
-								<p><img src="{{ i.LogoImage.url }}" width="300px" height="	314px"></p>
+								<p><img src="{{ i.LogoImage.url }}" class="img-responsive" alt="Client Logo"></p>
 							</div>
 						</div>
-						<div class="col-sm-8 testimonial_middle_right clearfix">
+						<div class="col-xs-12 col-sm-8 testimonial_middle_right clearfix">
 							<div class="testimonial_middle_right_inner clearfix">
 								<!-- <p><i class="fa-facebook"></i></p> -->
 								<h4>{{ i.ClientReview }}</h4>
@@ -143,15 +142,12 @@
 						</div>
 					</div>
 					{% endfor %}
-
-
-
-
-
 				</div>
 			</div>
 		</div>
 	</section>
+	
+	
 
 
 
