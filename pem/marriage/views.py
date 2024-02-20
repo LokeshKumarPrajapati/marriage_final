@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponseRedirect
-from .models import Stories, Services, Gallery,Testimonials,Contact,Gallery2,MasterImageTable,MasterVideoTable
+from .models import Stories, Services, Gallery,Testimonials,Contact,Gallery2,MasterImageTable,MasterVideoTable,IndexImageTable
 
 # Create your views here.
 def index(request):
@@ -10,6 +10,7 @@ def index(request):
 	testimonial_subset = testimonial[0:3]
 	services_subset = services[0:4]
 	backVideo = MasterVideoTable.objects.filter(VideoPosition ='Back Video', PageName = 'Index' )
+	backImagei = IndexImageTable.objects.filter(ImagePosition ='Background', PageName = 'Index' )
 	headerLogoImage = MasterImageTable.objects.filter(PageName = 'Header', ImagePosition='Header') 
 	aboutUsLogoImage = MasterImageTable.objects.filter(PageName = 'Index', ImagePosition='About Us')
 	testimonialBackImage = MasterImageTable.objects.filter(PageName = 'Index', ImagePosition='Testimonial Background')
@@ -19,7 +20,7 @@ def index(request):
 	backImage=MasterImageTable.objects.filter(PageName = 'Gallery', ImagePosition='Back')
 	print(backImage.first().Image)
 
-	return render(request, "index.html",{'gallery':gallery, 'headerLogoImage':headerLogoImage.first().Image,'backImage':backImage.first().Image,'stories':stories, 'services':services,'testimonial':testimonial,'testimonial_subset':testimonial_subset,'backVideo':backImage.first().Image, 'headerLogoImage':headerLogoImage.first().Image, 'aboutUsLogoImage':aboutUsLogoImage.first().Image, 'testimonialBackImage': testimonialBackImage.first().Image, 'aboutUsBackImage': aboutUsBackImage.first().Image,'services_subset': services_subset })
+	return render(request, "index.html",{'gallery':gallery, 'headerLogoImage':headerLogoImage.first().Image,'backImage':backImage.first().Image,'stories':stories, 'services':services,'testimonial':testimonial,'testimonial_subset':testimonial_subset,'backVideo':backImage.first().Image,'backImagei':backImagei.first().Image, 'headerLogoImage':headerLogoImage.first().Image, 'aboutUsLogoImage':aboutUsLogoImage.first().Image, 'testimonialBackImage': testimonialBackImage.first().Image, 'aboutUsBackImage': aboutUsBackImage.first().Image,'services_subset': services_subset })
 
 def about(request):
 	stories= Stories.objects.all()

@@ -57,3 +57,8 @@ class MasterVideoTable(models.Model):
 	PageName = models.TextField()
 	Video = models.FileField(upload_to='videos')
 	VideoPosition = models.TextField()
+
+class IndexImageTable(models.Model):
+	PageName = models.TextField()
+	Image = models.ImageField(upload_to='pics')
+	ImagePosition = models.TextField()
